@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}O'qituvchilar — IT Center Yaypan{% endblock %}
+
+{% block content %}
+<section class="section border-b border-border">
+  <div class="container-main">
+    <div class="text-xs font-semibold text-muted uppercase tracking-widest mb-4">Jamoa</div>
+    <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-extrabold text-base-dark tracking-tight leading-tight">
+      O'qituvchilar
+    </h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container-main">
+    {% if teachers %}
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+      {% for teacher in teachers %}
+      <a href="{{ teacher.get_absolute_url }}" class="card group p-6 flex flex-col items-center text-center">
+        <div class="w-20 h-20 rounded-full overflow-hidden bg-base-dark/10 mb-4 flex-shrink-0 ring-2 ring-transparent group-hover:ring-accent/20 transition-all">
+          {% if teacher.photo %}
+            <img src="{{ teacher.photo.url }}" alt="{{ teacher.full_name }}" class="w-full h-full object-cover">
+          {% else %}
+            <div class="w-full h-full flex items-center justify-center bg-accent/10 text-accent font-bold text-2xl">
+              {{ teacher.full_name|first }}
+            </div>
+          {% endif %}
+        </div>
+
+        <h2 class="font-bold text-base text-base-dark group-hover:text-accent transition-colors mb-1">{{ teacher.full_name }}</h2>
+        <p class="text-xs text-muted leading-snug mb-3">{{ teacher.role }}</p>
+
+        {% if teacher.courses.exists %}
+        <div class="flex flex-wrap justify-center gap-1.5 mt-auto pt-3 border-t border-border w-full">
+          {% for course in teacher.courses.all %}
+          <span class="text-[10px] font-medium bg-base text-muted px-2 py-0.5 rounded border border-border">{{ course.icon_emoji }} {{ course.name|truncatechars:18 }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-16">
+      <div class="text-4xl mb-4">👤</div>
+      <p class="text-muted">O'qituvchilar hali qo'shilmagan.</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

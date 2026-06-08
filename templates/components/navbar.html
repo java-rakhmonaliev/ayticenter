@@ -1,0 +1,74 @@
+{% load static %}
+<header class="sticky top-0 z-50 bg-base/95 backdrop-blur-sm border-b border-border" x-data="{ open: false }">
+  <div class="container-main">
+    <nav class="flex items-center justify-between h-16">
+
+      <!-- Logo -->
+      <a href="{% url 'core:home' %}" class="flex items-center gap-2.5 group">
+        <div class="w-8 h-8 bg-accent rounded-lg flex items-center justify-center flex-shrink-0 transition-transform group-hover:scale-105">
+          <span class="text-white font-bold text-sm leading-none">IT</span>
+        </div>
+        <span class="font-bold text-base-dark text-sm leading-tight">
+          IT Center<br>
+          <span class="font-normal text-muted text-xs">Yaypan</span>
+        </span>
+      </a>
+
+      <!-- Desktop nav -->
+      <div class="hidden md:flex items-center gap-7">
+        <a href="{% url 'courses:list' %}" class="nav-link">Kurslar</a>
+        <a href="{% url 'teachers:list' %}" class="nav-link">O'qituvchilar</a>
+        <a href="{% url 'career:index' %}" class="nav-link">Karyera</a>
+        <a href="{% url 'news:list' %}" class="nav-link">Yangiliklar</a>
+        <a href="{% url 'gallery:index' %}" class="nav-link">Galereya</a>
+        <a href="{% url 'core:about' %}" class="nav-link">Haqida</a>
+      </div>
+
+      <!-- CTA + mobile toggle -->
+      <div class="flex items-center gap-3">
+        <a href="{% url 'admissions:apply' %}" class="hidden md:inline-flex btn-primary">
+          Ariza topshirish
+        </a>
+
+        <!-- Mobile hamburger -->
+        <button
+          @click="open = !open"
+          class="md:hidden p-2 text-muted hover:text-base-dark transition-colors"
+          aria-label="Menyu"
+        >
+          <svg x-show="!open" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <svg x-show="open" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="display:none">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Mobile menu -->
+  <div
+    x-show="open"
+    x-transition:enter="transition ease-out duration-150"
+    x-transition:enter-start="opacity-0 -translate-y-2"
+    x-transition:enter-end="opacity-100 translate-y-0"
+    x-transition:leave="transition ease-in duration-100"
+    x-transition:leave-start="opacity-100 translate-y-0"
+    x-transition:leave-end="opacity-0 -translate-y-2"
+    class="md:hidden border-t border-border bg-base"
+    style="display: none"
+  >
+    <div class="container-main py-4 flex flex-col gap-0.5">
+      <a href="{% url 'courses:list' %}" @click="open = false" class="px-3 py-2.5 text-sm font-medium text-muted hover:text-base-dark hover:bg-surface rounded-lg transition-colors">Kurslar</a>
+      <a href="{% url 'teachers:list' %}" @click="open = false" class="px-3 py-2.5 text-sm font-medium text-muted hover:text-base-dark hover:bg-surface rounded-lg transition-colors">O'qituvchilar</a>
+      <a href="{% url 'career:index' %}" @click="open = false" class="px-3 py-2.5 text-sm font-medium text-muted hover:text-base-dark hover:bg-surface rounded-lg transition-colors">Karyera</a>
+      <a href="{% url 'news:list' %}" @click="open = false" class="px-3 py-2.5 text-sm font-medium text-muted hover:text-base-dark hover:bg-surface rounded-lg transition-colors">Yangiliklar</a>
+      <a href="{% url 'gallery:index' %}" @click="open = false" class="px-3 py-2.5 text-sm font-medium text-muted hover:text-base-dark hover:bg-surface rounded-lg transition-colors">Galereya</a>
+      <a href="{% url 'core:about' %}" @click="open = false" class="px-3 py-2.5 text-sm font-medium text-muted hover:text-base-dark hover:bg-surface rounded-lg transition-colors">Haqida</a>
+      <div class="pt-3 border-t border-border mt-1">
+        <a href="{% url 'admissions:apply' %}" class="btn-primary w-full justify-center">Ariza topshirish</a>
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,19 @@
+# Core
+Django>=5.2
+Pillow>=11.1.0
+
+# Database
+psycopg2-binary==2.9.10
+
+# Static files
+whitenoise==6.8.2
+
+# Environment variables
+python-decouple==3.8
+
+# Admin
+django-unfold==0.46.0
+django-admin-sortable2==2.2.3
+
+# Dev utilities
+django-extensions==3.2.3
