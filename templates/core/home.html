@@ -30,20 +30,18 @@
     <div class="mb-8">
       <h1 class="font-display font-black leading-[0.95] tracking-tight"
           style="font-size: clamp(3.5rem, 10vw, 9rem); color: var(--text-primary);">
-        <span class="hero-reveal delay-1 block">{{ settings.hero_headline|default:"Dasturlashni" }}</span>
-        <span class="hero-reveal delay-2 block" style="color: var(--accent);">o'rgan.</span>
-        <span class="hero-reveal delay-3 block" style="color: var(--text-tertiary);">Haqiqatda.</span>
+        <span class="hero-reveal delay-1 block">{{ settings.hero_headline }}</span>
       </h1>
     </div>
 
     <!-- Sub + CTA row -->
-    <div class="hero-reveal delay-4 flex flex-col sm:flex-row sm:items-center gap-5 max-w-xl">
+    <div class="hero-reveal delay-2 flex flex-col sm:flex-row sm:items-center gap-5 max-w-xl">
       <p class="text-base leading-relaxed" style="color: var(--text-secondary);">
         {{ settings.hero_sub }}
       </p>
     </div>
 
-    <div class="hero-reveal delay-5 flex items-center gap-4 mt-10">
+    <div class="hero-reveal delay-3 flex items-center gap-4 mt-10">
       <a href="{% url 'admissions:apply' %}" class="btn-primary px-8 py-4 text-base font-bold">
         Ariza topshirish →
       </a>
@@ -53,7 +51,7 @@
     </div>
 
     <!-- Stats strip -->
-    <div class="hero-reveal delay-5 grid grid-cols-2 sm:grid-cols-4 gap-6 mt-20 pt-10"
+    <div class="hero-reveal delay-4 grid grid-cols-2 sm:grid-cols-4 gap-6 mt-20 pt-10"
          style="border-top: 1px solid var(--border);" data-stagger>
       <div class="reveal">
         <div class="font-display font-black text-3xl mb-1" style="color: var(--text-primary);" data-count="4">4</div>
@@ -208,7 +206,13 @@
     <div class="grid sm:grid-cols-2 gap-4" data-stagger>
       {% for post in latest_news %}
       <a href="{{ post.get_absolute_url }}"
-         class="card-nb group flex flex-col sm:flex-row gap-0 overflow-hidden reveal">
+         class="tilt-card card-nb group flex flex-col sm:flex-row gap-0 overflow-hidden reveal"
+         style="position: relative;">
+
+        <!-- Shimmer layer -->
+        <div class="card-shimmer absolute inset-0 pointer-events-none transition-all duration-200"
+             style="border-radius: var(--radius-md); z-index: 1;"></div>
+
         {% if post.cover_image %}
         <div class="sm:w-44 flex-shrink-0 aspect-[16/9] sm:aspect-auto overflow-hidden">
           <img src="{{ post.cover_image.url }}" alt="{{ post.title }}"
@@ -220,7 +224,8 @@
           <span class="font-mono text-[10px] uppercase tracking-widest" style="color: var(--text-tertiary);">POST</span>
         </div>
         {% endif %}
-        <div class="p-5 flex flex-col justify-between flex-1">
+
+        <div class="p-5 flex flex-col justify-between flex-1 relative z-10">
           <div>
             <time class="font-mono text-[11px] uppercase tracking-widest" style="color: var(--text-tertiary);">
               {{ post.published_at|date:"j M, Y" }}
@@ -233,6 +238,10 @@
           </div>
           <span class="mt-3 font-mono text-xs uppercase tracking-widest" style="color: var(--accent);">O'qish →</span>
         </div>
+
+        <!-- Bottom accent line on hover -->
+        <div class="h-[2px] w-0 group-hover:w-full transition-all duration-500 absolute bottom-0 left-0 right-0"
+             style="background: var(--accent); border-radius: 0 0 var(--radius-md) var(--radius-md); z-index: 2;"></div>
       </a>
       {% endfor %}
     </div>

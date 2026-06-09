@@ -10,7 +10,7 @@
 <section class="section-nb-sm" style="border-bottom: 1px solid var(--border);">
   <div class="container-nb">
     <a href="{% url 'news:list' %}"
-       class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest mb-10 transition-colors"
+       class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest mb-10 transition-colors hero-reveal delay-1"
        style="color: var(--text-tertiary);"
        onmouseover="this.style.color='var(--accent)'"
        onmouseout="this.style.color='var(--text-tertiary)'">
@@ -20,10 +20,10 @@
       Yangiliklar
     </a>
     <div class="max-w-2xl">
-      <time class="font-mono text-[11px] uppercase tracking-widest hero-reveal delay-1" style="color: var(--accent);">
+      <time class="font-mono text-[11px] uppercase tracking-widest hero-reveal delay-2" style="color: var(--accent);">
         {{ post.published_at|date:"j M, Y" }}
       </time>
-      <h1 class="font-display font-black hero-reveal delay-2 mt-4"
+      <h1 class="font-display font-black hero-reveal delay-3 mt-4"
           style="font-size: clamp(2rem,5vw,4rem); color: var(--text-primary); line-height: 1.0;">
         {{ post.title }}
       </h1>
@@ -33,7 +33,7 @@
 
 <!-- Cover -->
 {% if post.cover_image %}
-<div class="container-nb py-8 reveal">
+<div class="container-nb py-8 reveal" data-delay="100">
   <div class="overflow-hidden" style="max-height: 500px; border-radius: var(--radius-lg); border: 1px solid var(--border);">
     <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="w-full object-cover">
   </div>
