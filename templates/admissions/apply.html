@@ -4,101 +4,113 @@
 {% block title %}Ariza topshirish — IT Center Yaypan{% endblock %}
 
 {% block content %}
-<section class="section">
-  <div class="container-main">
+<section class="section-nb">
+  <div class="container-nb">
     <div class="max-w-lg mx-auto">
 
       <!-- Header -->
-      <div class="mb-10">
-        <div class="text-xs font-semibold text-muted uppercase tracking-widest mb-3">Qabulxona</div>
-        <h1 class="text-3xl md:text-4xl font-extrabold text-base-dark tracking-tight leading-tight mb-3">
-          Ariza topshirish
+      <div class="mb-12">
+        <div class="font-mono text-[11px] uppercase tracking-widest mb-5 hero-reveal delay-1"
+             style="color: var(--accent);">
+          Qabulxona
+        </div>
+        <h1 class="font-display font-black hero-reveal delay-2"
+            style="font-size: clamp(2.5rem,6vw,4.5rem); color: var(--text-primary); line-height: 0.95;">
+          Ariza<br>topshirish
         </h1>
-        <p class="text-base text-muted">
+        <p class="text-base mt-4 hero-reveal delay-3" style="color: var(--text-secondary);">
           Ma'lumotlaringizni qoldiring. Tez orada aloqaga chiqamiz.
         </p>
       </div>
 
       <!-- Form -->
-      <form method="post" novalidate>
+      <form method="post" novalidate class="reveal">
         {% csrf_token %}
-        <div class="space-y-5">
+        <div class="space-y-6">
 
           <!-- Full name -->
           <div>
-            <label class="form-label" for="{{ form.full_name.id_for_label }}">{{ form.full_name.label }}</label>
-            <input
-              type="text"
-              name="{{ form.full_name.html_name }}"
-              id="{{ form.full_name.id_for_label }}"
-              value="{{ form.full_name.value|default:'' }}"
-              placeholder="Ism Familiya"
-              class="form-input {% if form.full_name.errors %}border-red-400 focus:border-red-400 focus:ring-red-400/10{% endif %}"
-              autocomplete="name"
-            >
+            <label class="form-label-nb" for="{{ form.full_name.id_for_label }}">To'liq ism</label>
+            <input type="text"
+                   name="{{ form.full_name.html_name }}"
+                   id="{{ form.full_name.id_for_label }}"
+                   value="{{ form.full_name.value|default:'' }}"
+                   placeholder="Ism Familiya"
+                   class="form-input-nb {% if form.full_name.errors %}error{% endif %}"
+                   autocomplete="name"
+                   {% if form.full_name.errors %}style="border-color: #ef4444;"{% endif %}>
             {% if form.full_name.errors %}
-            <p class="mt-1.5 text-xs text-red-500">{{ form.full_name.errors|first }}</p>
+            <p class="mt-2 text-xs" style="color: #ef4444;">{{ form.full_name.errors|first }}</p>
             {% endif %}
           </div>
-
+          
           <!-- Phone -->
           <div>
-            <label class="form-label" for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
-            <input
-              type="tel"
-              name="{{ form.phone.html_name }}"
-              id="{{ form.phone.id_for_label }}"
-              value="{{ form.phone.value|default:'' }}"
-              placeholder="+998 90 123 45 67"
-              class="form-input {% if form.phone.errors %}border-red-400 focus:border-red-400 focus:ring-red-400/10{% endif %}"
-              autocomplete="tel"
-            >
+            <label class="form-label-nb" for="{{ form.phone.id_for_label }}">Telefon raqam</label>
+            <input type="tel"
+                   name="{{ form.phone.html_name }}"
+                   id="{{ form.phone.id_for_label }}"
+                   value="{{ form.phone.value|default:'' }}"
+                   placeholder="+998 90 123 45 67"
+                   class="form-input-nb"
+                   autocomplete="tel"
+                   {% if form.phone.errors %}style="border-color: #ef4444;"{% endif %}>
             {% if form.phone.errors %}
-            <p class="mt-1.5 text-xs text-red-500">{{ form.phone.errors|first }}</p>
+            <p class="mt-2 text-xs" style="color: #ef4444;">{{ form.phone.errors|first }}</p>
             {% endif %}
           </div>
 
           <!-- Course -->
           <div>
-            <label class="form-label" for="{{ form.course.id_for_label }}">{{ form.course.label }}</label>
-            <select
-              name="{{ form.course.html_name }}"
-              id="{{ form.course.id_for_label }}"
-              class="form-input {% if form.course.errors %}border-red-400 focus:border-red-400 focus:ring-red-400/10{% endif %}"
-            >
-              <option value="">Kursni tanlang...</option>
+            <label class="form-label-nb" for="{{ form.course.id_for_label }}">Kurs</label>
+            <select name="{{ form.course.html_name }}"
+                    id="{{ form.course.id_for_label }}"
+                    class="form-input-nb"
+                    style="appearance: none; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23888'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E\"); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; padding-right: 40px;"
+                    {% if form.course.errors %}style="border-color: #ef4444;"{% endif %}>
+              <option value="" style="background: #18181C;">Kursni tanlang...</option>
               {% for pk, name in form.course.field.choices %}
               {% if pk %}
-              <option value="{{ pk }}" {% if form.course.value|stringformat:"s" == pk|stringformat:"s" %}selected{% endif %}>{{ name }}</option>
+              <option value="{{ pk }}"
+                      {% if form.course.value|stringformat:"s" == pk|stringformat:"s" %}selected{% endif %}
+                      style="background: #18181C;">
+                {{ name }}
+              </option>
               {% endif %}
               {% endfor %}
             </select>
             {% if form.course.errors %}
-            <p class="mt-1.5 text-xs text-red-500">{{ form.course.errors|first }}</p>
+            <p class="mt-2 text-xs" style="color: #ef4444;">{{ form.course.errors|first }}</p>
             {% endif %}
           </div>
 
           <!-- Message -->
           <div>
-            <label class="form-label" for="{{ form.message.id_for_label }}">
-              {{ form.message.label }}
-              <span class="text-muted font-normal ml-1">(ixtiyoriy)</span>
+            <label class="form-label-nb" for="{{ form.message.id_for_label }}">
+              Xabar
+              <span class="normal-case tracking-normal font-sans ml-1" style="color: var(--text-tertiary);">(ixtiyoriy)</span>
             </label>
-            <textarea
-              name="{{ form.message.html_name }}"
-              id="{{ form.message.id_for_label }}"
-              placeholder="Savollaringiz yoki izohlaringiz..."
-              rows="4"
-              class="form-input resize-none {% if form.message.errors %}border-red-400{% endif %}"
-            >{{ form.message.value|default:'' }}</textarea>
+            <textarea name="{{ form.message.html_name }}"
+                      id="{{ form.message.id_for_label }}"
+                      placeholder="Savollaringiz yoki izohlaringiz..."
+                      rows="4"
+                      class="form-input-nb resize-none">{{ form.message.value|default:'' }}</textarea>
           </div>
 
+          <!-- Divider -->
+          <div style="border-top: 1px solid var(--border);"></div>
+
           <!-- Submit -->
-          <div class="pt-2">
-            <button type="submit" class="btn-primary w-full justify-center text-base py-3.5">
-              Ariza yuborish
+          <div class="pt-1">
+            <button type="submit" class="btn-primary w-full justify-center py-4 text-base font-bold">
+              Ariza yuborish →
             </button>
           </div>
+
+          <!-- Fine print -->
+          <p class="text-center font-mono text-[11px]" style="color: var(--text-tertiary);">
+            Bir ish kuni ichida javob beramiz
+          </p>
         </div>
       </form>
     </div>

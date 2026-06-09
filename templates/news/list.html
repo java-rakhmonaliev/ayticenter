@@ -4,36 +4,52 @@
 {% block title %}Yangiliklar — IT Center Yaypan{% endblock %}
 
 {% block content %}
-<section class="section border-b border-border">
-  <div class="container-main">
-    <div class="text-xs font-semibold text-muted uppercase tracking-widest mb-4">E'lonlar</div>
-    <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-extrabold text-base-dark tracking-tight leading-tight">
+
+<!-- Header -->
+<section class="section-nb-sm" style="border-bottom: 1px solid var(--border);">
+  <div class="container-nb">
+    <div class="font-mono text-[11px] uppercase tracking-widest mb-6" style="color: var(--accent);">E'lonlar</div>
+    <h1 class="font-display font-black hero-reveal delay-1"
+        style="font-size: clamp(2.5rem,7vw,5.5rem); color: var(--text-primary); line-height: 0.95;">
       Yangiliklar
     </h1>
   </div>
 </section>
 
-<section class="section">
-  <div class="container-main">
+<!-- Posts -->
+<section class="section-nb">
+  <div class="container-nb">
     {% if page_obj.object_list %}
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" data-stagger>
       {% for post in page_obj %}
-      <a href="{{ post.get_absolute_url }}" class="card group flex flex-col">
+      <a href="{{ post.get_absolute_url }}" class="card-nb group flex flex-col overflow-hidden reveal">
+        <!-- Cover or placeholder -->
         {% if post.cover_image %}
         <div class="aspect-[16/9] overflow-hidden">
-          <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+          <img src="{{ post.cover_image.url }}" alt="{{ post.title }}"
+               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
         </div>
         {% else %}
-        <div class="aspect-[16/9] bg-base flex items-center justify-center border-b border-border">
-          <svg class="w-10 h-10 text-border" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+        <div class="aspect-[16/9] flex items-center justify-center"
+             style="background: var(--bg-elevated);">
+          <span class="font-mono text-[10px] uppercase tracking-widest" style="color: var(--text-tertiary);">
+            POST
+          </span>
         </div>
         {% endif %}
 
         <div class="p-5 flex flex-col flex-1">
-          <time class="text-xs text-muted mb-2">{{ post.published_at|date:"j-M, Y" }}</time>
-          <h2 class="font-bold text-base-dark text-base leading-snug mb-2 group-hover:text-accent transition-colors">{{ post.title }}</h2>
-          <p class="text-sm text-muted leading-relaxed flex-1">{{ post.excerpt }}</p>
-          <span class="mt-4 text-xs font-semibold text-accent">O'qish →</span>
+          <time class="font-mono text-[11px] uppercase tracking-widest mb-3" style="color: var(--text-tertiary);">
+            {{ post.published_at|date:"j M, Y" }}
+          </time>
+          <h2 class="font-display font-bold text-base leading-snug mb-2 flex-1 transition-colors group-hover:text-accent"
+              style="color: var(--text-primary);">
+            {{ post.title }}
+          </h2>
+          <p class="text-sm leading-relaxed mb-4" style="color: var(--text-secondary);">
+            {{ post.excerpt }}
+          </p>
+          <span class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent);">O'qish →</span>
         </div>
       </a>
       {% endfor %}
@@ -41,27 +57,30 @@
 
     <!-- Pagination -->
     {% if page_obj.has_other_pages %}
-    <div class="mt-10 flex items-center justify-center gap-2">
+    <div class="mt-14 flex items-center justify-center gap-3 reveal">
       {% if page_obj.has_previous %}
-      <a href="?page={{ page_obj.previous_page_number }}" class="btn-ghost px-4 py-2 text-sm">← Oldingi</a>
+      <a href="?page={{ page_obj.previous_page_number }}" class="btn-ghost px-5 py-2.5 text-sm">
+        ← Oldingi
+      </a>
       {% endif %}
-
-      <span class="text-sm text-muted px-3">
+      <span class="font-mono text-xs" style="color: var(--text-tertiary);">
         {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
       </span>
-
       {% if page_obj.has_next %}
-      <a href="?page={{ page_obj.next_page_number }}" class="btn-ghost px-4 py-2 text-sm">Keyingi →</a>
+      <a href="?page={{ page_obj.next_page_number }}" class="btn-ghost px-5 py-2.5 text-sm">
+        Keyingi →
+      </a>
       {% endif %}
     </div>
     {% endif %}
 
     {% else %}
-    <div class="text-center py-16">
-      <div class="text-4xl mb-4">📰</div>
-      <p class="text-muted">Hozircha yangiliklar mavjud emas.</p>
+    <div class="text-center py-20">
+      <div class="text-5xl mb-5">📰</div>
+      <p style="color: var(--text-tertiary);">Hozircha yangiliklar mavjud emas.</p>
     </div>
     {% endif %}
   </div>
 </section>
+
 {% endblock %}
