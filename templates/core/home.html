@@ -41,12 +41,19 @@
       </p>
     </div>
 
-    <div class="hero-reveal delay-3 flex items-center gap-4 mt-10">
-      <a href="{% url 'admissions:apply' %}" class="btn-primary px-8 py-4 text-base font-bold">
+    <div class="hero-reveal delay-3 flex items-center gap-2 mt-10">
+      <a href="{% url 'admissions:apply' %}"
+         class="btn-primary font-bold flex-1 sm:flex-none sm:px-8 py-3.5 text-sm justify-center">
         Ariza topshirish →
       </a>
-      <a href="{% url 'courses:list' %}" class="btn-ghost px-8 py-4 text-base">
-        Kurslarni ko'rish
+      <a href="{% url 'courses:list' %}"
+         class="btn-ghost inline-flex items-center gap-2 py-3.5 px-4 text-sm"
+         style="white-space: nowrap; flex-shrink: 0;">
+        <span>Kurslar</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 5l7 7-7 7"/>
+        </svg>
       </a>
     </div>
 
