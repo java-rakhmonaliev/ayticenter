@@ -49,6 +49,7 @@
     font-family: 'DM Sans', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 
   body {
@@ -56,7 +57,8 @@
     color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
-    /* Grain texture */
+    overflow-x: hidden;
+    position: relative;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
   }
 
@@ -64,6 +66,14 @@
     font-family: 'Syne', system-ui, sans-serif;
     letter-spacing: -0.025em;
     line-height: 1.05;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
+  }
+
+  p, li, time, span {
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   img { max-width: 100%; height: auto; }
@@ -161,7 +171,12 @@
   }
 
   .container-nb {
-    @apply max-w-6xl mx-auto px-5 sm:px-8 lg:px-10;
+    @apply max-w-6xl mx-auto;
+    padding-left: clamp(1rem, 5vw, 2.5rem);
+    padding-right: clamp(1rem, 5vw, 2.5rem);
+    /* Hard stop — never wider than viewport */
+    max-width: min(72rem, 100vw);
+    box-sizing: border-box;
   }
 
   /* ── Nav links ── */
@@ -222,6 +237,15 @@
   .tilt-card {
     transform-style: preserve-3d;
     transition: transform 0.1s ease;
+    /* Contain children so shimmer/accent line don't bleed out */
+    overflow: hidden;
+  }
+  /* Disable 3D tilt on touch screens — no cursor to track */
+  @media (hover: none) {
+    .tilt-card {
+      transform-style: flat !important;
+      transform: none !important;
+    }
   }
 
   /* ── Glow dot ── */
@@ -291,4 +315,33 @@
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
   pointer-events: none;
   border-radius: inherit;
+}
+
+/* ── Mobile fixes ── */
+@media (max-width: 640px) {
+  /* Tighter section padding on mobile */
+  .section-nb    { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+  .section-nb-sm { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+
+  /* Hero heading: never wider than screen */
+  .hero-reveal {
+    max-width: 100%;
+    display: block;
+  }
+
+  /* Ambient orbs: clip so they don't cause scroll */
+  .ambient-orb {
+    max-width: 100vw;
+    overflow: hidden;
+  }
+
+  /* Sections with relative positioning contain their orbs */
+  section {
+    overflow: hidden;
+  }
+
+  /* Flex rows that might overflow → stack */
+  .flex.items-center.gap-4 {
+    flex-wrap: wrap;
+  }
 }

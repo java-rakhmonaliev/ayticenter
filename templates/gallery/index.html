@@ -10,7 +10,7 @@
   <div class="container-nb">
     <div class="font-mono text-[11px] uppercase tracking-widest mb-6" style="color: var(--accent);">Hayot IT Markazda</div>
     <h1 class="font-display font-black hero-reveal delay-1"
-        style="font-size: clamp(2.5rem,7vw,5.5rem); color: var(--text-primary); line-height: 0.95;">
+        style="font-size: clamp(1.75rem,7vw,5.5rem); color: var(--text-primary); line-height: 0.95;">
       Galereya
     </h1>
   </div>
@@ -52,7 +52,7 @@
     <!-- Masonry grid -->
     <div class="columns-2 md:columns-3 lg:columns-4 gap-3">
       {% for photo in photos %}
-      <div class="break-inside-avoid mb-3 reveal" style="animation-delay: {% cycle '0' '100' '200' '300' %}ms">
+      <div class="break-inside-avoid mb-3 reveal" style="animation-delay: {{ forloop.counter0|divisibleby:4 }}00ms">
         <button @click="openPhoto({{ forloop.index0 }})"
                 class="block w-full group relative overflow-hidden transition-all duration-300 focus:outline-none"
                 style="border-radius: var(--radius-nb-md); border: 1px solid var(--border);"
