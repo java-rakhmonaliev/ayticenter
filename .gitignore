@@ -52,3 +52,9 @@ Thumbs.db
 
 # Docker
 *.pid
+
+# Terraform
+**/.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
