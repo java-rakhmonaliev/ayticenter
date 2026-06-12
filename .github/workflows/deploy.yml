@@ -15,14 +15,13 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-              cd /app
-              git fetch origin
-              git reset --hard origin/main
-              npm install
-              npm run build:css
-              source .venv/bin/activate
-              pip install -r requirements.txt
-              export DJANGO_SETTINGS_MODULE=config.settings.prod
-              python manage.py migrate
-              python manage.py collectstatic --noinput
-              sudo systemctl restart aytimarkaz
+            cd /app
+            git fetch origin
+            git reset --hard origin/main
+            source .venv/bin/activate
+            pip install -r requirements.txt
+            npm install
+            npm run build:css
+            python manage.py migrate --settings=config.settings.prod
+            python manage.py collectstatic --noinput --settings=config.settings.prod
+            sudo systemctl restart gunicorn
