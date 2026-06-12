@@ -5,90 +5,50 @@
 
 {% block content %}
 
-<!-- Header -->
-<section class="section-nb-sm" style="border-bottom: 1px solid var(--border);">
+<section style="padding:150px 0 110px;">
   <div class="container-nb">
-    <div class="font-mono text-[11px] uppercase tracking-widest mb-6 hero-reveal delay-1" style="color: var(--accent);">E'lonlar</div>
-    <h1 class="font-display font-black hero-reveal delay-2"
-        style="font-size: clamp(1.75rem,7vw,5.5rem); color: var(--text-primary); line-height: 0.95;">
-      Yangiliklar
-    </h1>
-  </div>
-</section>
 
-<!-- Posts -->
-<section class="section-nb">
-  <div class="container-nb">
+    <!-- Header -->
+    <div class="reveal">
+      <div class="eyebrow"><span class="mono-label" style="color:var(--accent);">E'lonlar</span></div>
+      <h1 class="display-page" style="margin:14px 0 0;">Yangiliklar</h1>
+    </div>
+
     {% if page_obj.object_list %}
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" data-stagger>
+    <div style="margin-top:50px;" data-stagger>
       {% for post in page_obj %}
       <a href="{{ post.get_absolute_url }}"
-         class="tilt-card card-nb group flex flex-col overflow-hidden reveal"
-         style="position: relative;">
-
-        <!-- Shimmer layer -->
-        <div class="card-shimmer absolute inset-0 pointer-events-none transition-all duration-200"
-             style="border-radius: var(--radius-md); z-index: 1;"></div>
-
-        <!-- Cover or placeholder -->
-        {% if post.cover_image %}
-        <div class="aspect-[16/9] overflow-hidden flex-shrink-0">
-          <img src="{{ post.cover_image.url }}" alt="{{ post.title }}"
-               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-        </div>
-        {% else %}
-        <div class="aspect-[16/9] flex items-center justify-center flex-shrink-0"
-             style="background: var(--bg-elevated);">
-          <span class="font-mono text-[10px] uppercase tracking-widest" style="color: var(--text-tertiary);">
-            POST
-          </span>
-        </div>
-        {% endif %}
-
-        <div class="p-5 flex flex-col flex-1 relative z-10">
-          <time class="font-mono text-[11px] uppercase tracking-widest mb-3" style="color: var(--text-tertiary);">
-            {{ post.published_at|date:"j M, Y" }}
-          </time>
-          <h2 class="font-display font-bold text-base leading-snug mb-2 flex-1 transition-colors duration-200 group-hover:text-accent"
-              style="color: var(--text-primary);">
-            {{ post.title }}
-          </h2>
-          <p class="text-sm leading-relaxed mb-4" style="color: var(--text-secondary);">
-            {{ post.excerpt }}
-          </p>
-          <span class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent);">O'qish →</span>
-        </div>
-
-        <!-- Bottom accent line on hover -->
-        <div class="h-[2px] w-0 group-hover:w-full transition-all duration-500 absolute bottom-0 left-0 right-0"
-             style="background: var(--accent); border-radius: 0 0 var(--radius-md) var(--radius-md); z-index: 2;"></div>
+         class="reveal list-row grid items-start w-full gap-x-4 gap-y-2 sm:gap-6 grid-cols-[1fr_auto] sm:grid-cols-[150px_1fr_auto]"
+         style="color:var(--text-primary);">
+        <span class="font-mono uppercase col-span-2 sm:col-span-1" style="font-size:11px; letter-spacing:0.16em; color:var(--accent);">{{ post.published_at|date:"j M Y" }}</span>
+        <span>
+          <span class="block font-black uppercase" style="font-stretch:112%; font-size:clamp(20px,2.6vw,30px); letter-spacing:-0.01em; line-height:1.05;">{{ post.title }}</span>
+          <span class="block" style="font-size:14px; line-height:1.6; color:rgba(242,244,240,0.5); margin-top:10px;">{{ post.excerpt }}</span>
+        </span>
+        <span style="font-size:26px; color:var(--accent);">→</span>
       </a>
       {% endfor %}
     </div>
 
     <!-- Pagination -->
     {% if page_obj.has_other_pages %}
-    <div class="mt-14 flex items-center justify-center gap-3 reveal">
+    <div class="reveal flex items-center justify-center gap-3" style="margin-top:56px;">
       {% if page_obj.has_previous %}
-      <a href="?page={{ page_obj.previous_page_number }}" class="btn-ghost px-5 py-2.5 text-sm">
-        ← Oldingi
-      </a>
+      <a href="?page={{ page_obj.previous_page_number }}" class="btn-ghost" style="padding:12px 22px; font-size:12px;">← Oldingi</a>
       {% endif %}
-      <span class="font-mono text-xs" style="color: var(--text-tertiary);">
+      <span class="font-mono" style="font-size:12px; letter-spacing:0.22em; color:var(--text-secondary);">
         {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
       </span>
       {% if page_obj.has_next %}
-      <a href="?page={{ page_obj.next_page_number }}" class="btn-ghost px-5 py-2.5 text-sm">
-        Keyingi →
-      </a>
+      <a href="?page={{ page_obj.next_page_number }}" class="btn-ghost" style="padding:12px 22px; font-size:12px;">Keyingi →</a>
       {% endif %}
     </div>
     {% endif %}
 
     {% else %}
     <div class="text-center py-20">
-      <div class="text-5xl mb-5">📰</div>
-      <p style="color: var(--text-tertiary);">Hozircha yangiliklar mavjud emas.</p>
+      <div class="font-mono" style="font-size:13px; letter-spacing:0.2em; color:rgba(43,229,123,0.6); text-transform:uppercase;">[ bo'sh ]</div>
+      <p style="color:var(--text-tertiary); margin-top:14px;">Hozircha yangiliklar mavjud emas.</p>
     </div>
     {% endif %}
   </div>

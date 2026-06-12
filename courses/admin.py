@@ -18,7 +18,7 @@ class CourseAdmin(SortableAdminMixin, ModelAdmin):
         ("Asosiy", {"fields": ("name", "slug", "icon_emoji", "tagline", "description")}),
         ("Rasm", {"fields": ("cover_image",)}),
         ("Jadval va narx", {"fields": ("duration", "schedule", "price", "level")}),
-        ("Ko'rinish", {"fields": ("is_active", "order")}),
+        ("Ko'rinish", {"fields": ("badge_text", "is_active", "order")}),
     )
 
     @admin.display(description="Cover")

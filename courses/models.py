@@ -19,6 +19,10 @@ class Course(models.Model):
     schedule = models.CharField(max_length=100, help_text="Masalan: Du-Cho-Ju 15:00-17:00")
     price = models.CharField(max_length=100, help_text="Masalan: Bepul yoki 450 000 so'm/oy")
     level = models.CharField(max_length=20, choices=LEVEL_CHOICES, default='boshlangich')
+    badge_text = models.CharField(
+        max_length=50, blank=True, default='',
+        help_text="Qizil shoshilinch belgi, masalan: 3 ta joy qoldi (bo'sh = ko'rsatilmaydi)"
+    )
     is_active = models.BooleanField(default=True)
     order = models.PositiveIntegerField(default=0)
 
@@ -42,3 +46,9 @@ class Course(models.Model):
     @property
     def level_display(self):
         return dict(self.LEVEL_CHOICES).get(self.level, self.level)
+
+    @property
+    def code(self):
+        """3-letter display monogram, e.g. 'Frontend dasturlash' -> 'FRO'."""
+        letters = ''.join(ch for ch in self.name if ch.isalpha())
+        return (letters[:3] or 'CRS').upper()

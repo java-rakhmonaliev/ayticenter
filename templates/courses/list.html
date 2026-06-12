@@ -5,83 +5,55 @@
 
 {% block content %}
 
-<!-- Header -->
-<section class="section-nb-sm" style="border-bottom: 1px solid var(--border);">
+<section style="padding:150px 0 110px;" x-data="{ filter: 'all' }">
   <div class="container-nb">
-    <div class="font-mono text-[11px] uppercase tracking-widest mb-6" style="color: var(--accent);">IT Center Yaypan</div>
-    <h1 class="font-display font-black hero-reveal delay-1"
-        style="font-size: clamp(1.75rem,7vw,5.5rem); color: var(--text-primary); line-height: 0.95;">
-      Kurslar
-    </h1>
-    <p class="text-base mt-4 max-w-lg hero-reveal delay-2" style="color: var(--text-secondary);">
-      Dasturlashdan dizayngacha — hamma narsa amaliy loyihalar orqali.
-    </p>
-  </div>
-</section>
 
-<!-- Listing -->
-<section class="section-nb" x-data="{ filter: 'all' }">
-  <div class="container-nb">
+    <!-- Header -->
+    <div class="reveal">
+      <div class="eyebrow"><span class="mono-label" style="color:var(--accent);">Katalog</span></div>
+      <h1 class="display-page" style="margin:14px 0 0; font-size:clamp(56px,9vw,130px);">Kurslar</h1>
+      <p style="max-width:480px; margin:22px 0 0; font-size:16px; line-height:1.6; color:var(--text-secondary);">
+        O'zingizga mos yo'nalishni tanlang — barchasi amaliy, barchasi Yaypanda.
+      </p>
+    </div>
 
     <!-- Filter pills -->
-    <div class="flex flex-wrap gap-2 mb-12 reveal">
-      <button @click="filter = 'all'"
-              :class="filter === 'all' ? 'border-accent text-accent' : ''"
-              class="btn-ghost text-xs px-4 py-2 transition-all duration-200"
-              :style="filter === 'all' ? 'border-color: var(--accent); color: var(--accent); background: var(--accent-dim);' : ''">
-        Barchasi
-      </button>
-      <button @click="filter = 'boshlangich'"
-              class="btn-ghost text-xs px-4 py-2 transition-all duration-200"
-              :style="filter === 'boshlangich' ? 'border-color: var(--accent); color: var(--accent); background: var(--accent-dim);' : ''">
-        Boshlang'ich
-      </button>
-      <button @click="filter = 'orta'"
-              class="btn-ghost text-xs px-4 py-2 transition-all duration-200"
-              :style="filter === 'orta' ? 'border-color: var(--accent); color: var(--accent); background: var(--accent-dim);' : ''">
-        O'rta
-      </button>
-      <button @click="filter = 'ilgor'"
-              class="btn-ghost text-xs px-4 py-2 transition-all duration-200"
-              :style="filter === 'ilgor' ? 'border-color: var(--accent); color: var(--accent); background: var(--accent-dim);' : ''">
-        Ilg'or
-      </button>
+    <div class="reveal flex gap-2.5 flex-wrap" style="margin:42px 0 38px; padding-top:30px; border-top:1px solid rgba(255,255,255,0.09);">
+      <button @click="filter = 'all'"         :class="filter === 'all' ? 'pill active' : 'pill'">Barchasi</button>
+      <button @click="filter = 'boshlangich'" :class="filter === 'boshlangich' ? 'pill active' : 'pill'">Boshlang'ich</button>
+      <button @click="filter = 'orta'"        :class="filter === 'orta' ? 'pill active' : 'pill'">O'rta</button>
+      <button @click="filter = 'ilgor'"       :class="filter === 'ilgor' ? 'pill active' : 'pill'">Ilg'or</button>
     </div>
 
     <!-- Course grid -->
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3" style="gap:18px;" data-stagger>
       {% for course in courses %}
       <div x-show="filter === 'all' || filter === '{{ course.level }}'"
            x-transition:enter="transition ease-out duration-200"
            x-transition:enter-start="opacity-0 scale-95"
-           x-transition:enter-end="opacity-100 scale-100"
-           x-transition:leave="transition ease-in duration-150"
-           x-transition:leave-start="opacity-100 scale-100"
-           x-transition:leave-end="opacity-0 scale-95">
+           x-transition:enter-end="opacity-100 scale-100">
         {% include 'components/course_card.html' %}
       </div>
       {% empty %}
       <div class="col-span-full py-20 text-center">
-        <div class="text-5xl mb-5">📭</div>
-        <p style="color: var(--text-tertiary);">Hozircha faol kurslar mavjud emas.</p>
+        <div class="font-mono" style="font-size:13px; letter-spacing:0.2em; color:rgba(43,229,123,0.6); text-transform:uppercase;">[ bo'sh ]</div>
+        <p style="color:var(--text-tertiary); margin-top:14px;">Hozircha faol kurslar mavjud emas.</p>
       </div>
       {% endfor %}
     </div>
-  </div>
-</section>
 
-<!-- CTA -->
-<section style="background: var(--bg-elevated); border-top: 1px solid var(--border);">
-  <div class="container-nb py-16 md:py-20 flex flex-col md:flex-row items-center justify-between gap-8 reveal">
-    <div>
-      <h2 class="font-display font-black text-2xl md:text-3xl mb-2" style="color: var(--text-primary);">
-        Qaysi kurs sizga mos?
-      </h2>
-      <p style="color: var(--text-secondary);">Aniq bilmasangiz ham — ariza qoldiring, maslahatlashamiz.</p>
+    <!-- CTA panel -->
+    <div class="reveal relative overflow-hidden flex items-center justify-between gap-7 flex-wrap"
+         style="margin-top:90px; background:var(--bg-surface); border:1px solid rgba(255,255,255,0.08); border-radius:22px; padding:54px 48px;">
+      <div class="ambient-orb" style="top:-120px; right:-60px; width:340px; height:340px; background:radial-gradient(circle, rgba(43,229,123,0.16), transparent 65%);"></div>
+      <div class="relative">
+        <div class="font-black uppercase" style="font-stretch:114%; font-size:clamp(26px,3.4vw,42px); letter-spacing:-0.01em; line-height:1;">Qaysi kurs sizga mos?</div>
+        <div style="font-size:14.5px; color:var(--text-secondary); margin-top:12px;">Ariza qoldiring — birga tanlaymiz. Bu hech narsaga majbur qilmaydi.</div>
+      </div>
+      <a href="{% url 'admissions:apply' %}" data-mag class="btn-primary relative" style="font-size:15px; padding:19px 34px;">
+        Ariza topshirish <span style="font-size:17px;">→</span>
+      </a>
     </div>
-    <a href="{% url 'admissions:apply' %}" class="flex-shrink-0 btn-primary px-8 py-4">
-      Ariza topshirish →
-    </a>
   </div>
 </section>
 

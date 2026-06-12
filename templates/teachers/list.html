@@ -5,75 +5,44 @@
 
 {% block content %}
 
-<!-- Header -->
-<section class="section-nb-sm" style="border-bottom: 1px solid var(--border);">
+<section style="padding:150px 0 110px;">
   <div class="container-nb">
-    <div class="font-mono text-[11px] uppercase tracking-widest mb-6" style="color: var(--accent);">Jamoa</div>
-    <h1 class="font-display font-black hero-reveal delay-1"
-        style="font-size: clamp(1.75rem,7vw,5.5rem); color: var(--text-primary); line-height: 0.95;">
-      O'qituvchilar
-    </h1>
-  </div>
-</section>
 
-<!-- Grid -->
-<section class="section-nb">
-  <div class="container-nb">
+    <!-- Header -->
+    <div class="reveal">
+      <div class="eyebrow"><span class="mono-label" style="color:var(--accent);">Jamoa</span></div>
+      <h1 class="display-page" style="margin:14px 0 0;">O'qituvchilar</h1>
+      <p style="max-width:480px; margin:22px 0 0; font-size:16px; line-height:1.6; color:var(--text-secondary);">
+        Amaliyotchi ustozlar — har biri o'z sohasida ishlaydigan mutaxassis.
+      </p>
+    </div>
+
     {% if teachers %}
-    <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5" data-stagger>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" style="margin-top:54px;" data-stagger>
       {% for teacher in teachers %}
       <a href="{{ teacher.get_absolute_url }}"
-         class="tilt-card card-nb group p-7 flex flex-col items-center text-center reveal">
-        <div class="card-shimmer absolute inset-0 pointer-events-none" style="border-radius: var(--radius-md);"></div>
-
-        <!-- Avatar with ring -->
-        <div class="relative mb-5">
-          <div class="w-20 h-20 rounded-full overflow-hidden transition-all duration-300 group-hover:ring-2"
-               style="border: 2px solid var(--border); ring-color: var(--accent);">
-            {% if teacher.photo %}
-              <img src="{{ teacher.photo.url }}" alt="{{ teacher.full_name }}"
-                   class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-            {% else %}
-              <div class="w-full h-full flex items-center justify-center font-display font-black text-2xl"
-                   style="background: var(--accent-dim); color: var(--accent);">
-                {{ teacher.full_name|first }}
-              </div>
-            {% endif %}
-          </div>
-          <!-- Online dot -->
-          <div class="absolute bottom-1 right-1 w-3 h-3 rounded-full"
-               style="background: var(--bg-surface); border: 2px solid var(--bg-surface);">
-            <div class="w-full h-full rounded-full" style="background: #22c55e;"></div>
-          </div>
-        </div>
-
-        <h2 class="font-display font-bold text-base mb-1 transition-colors duration-200 group-hover:text-accent relative z-10"
-            style="color: var(--text-primary);">
-          {{ teacher.full_name }}
-        </h2>
-        <p class="font-mono text-[10px] uppercase tracking-widest leading-snug mb-4 relative z-10"
-           style="color: var(--text-tertiary);">
-          {{ teacher.role }}
-        </p>
-
-        {% if teacher.courses.exists %}
-        <div class="flex flex-wrap justify-center gap-1.5 mt-auto pt-4 w-full relative z-10"
-             style="border-top: 1px solid var(--border);">
-          {% for course in teacher.courses.all %}
-          <span class="font-mono text-[10px] px-2 py-0.5 rounded"
-                style="background: var(--bg-elevated); border: 1px solid var(--border); color: var(--text-tertiary);">
-            {{ course.icon_emoji }} {{ course.name|truncatechars:16 }}
+         class="tilt-card card-nb reveal block text-center"
+         style="padding:32px 22px 24px; color:var(--text-primary);">
+        <span class="relative inline-flex" style="margin-bottom:18px;">
+          <span class="avatar-ring" style="width:84px; height:84px; font-size:33px;">
+            {% if teacher.photo %}<img src="{{ teacher.photo.url }}" alt="{{ teacher.full_name }}">{% else %}{{ teacher.full_name|first }}{% endif %}
           </span>
-          {% endfor %}
-        </div>
+          <span class="absolute" style="bottom:4px; right:4px; width:13px; height:13px; border-radius:50%; background:var(--accent); border:3px solid var(--bg-surface); animation:pulseDot 2.2s infinite;"></span>
+        </span>
+        <span class="block font-black uppercase" style="font-stretch:110%; font-size:17px; line-height:1.1;">{{ teacher.full_name }}</span>
+        <span class="block font-mono uppercase" style="font-size:9.5px; letter-spacing:0.18em; color:var(--accent); margin-top:8px;">{{ teacher.role }}</span>
+        {% if teacher.courses.exists %}
+        <span class="block" style="margin-top:18px; padding-top:15px; border-top:1px solid rgba(255,255,255,0.07); font-size:12px; color:rgba(242,244,240,0.45);">
+          {% for course in teacher.courses.all %}{{ course.name }}{% if not forloop.last %} · {% endif %}{% endfor %}
+        </span>
         {% endif %}
       </a>
       {% endfor %}
     </div>
     {% else %}
     <div class="text-center py-20">
-      <div class="text-5xl mb-5">👤</div>
-      <p style="color: var(--text-tertiary);">O'qituvchilar hali qo'shilmagan.</p>
+      <div class="font-mono" style="font-size:13px; letter-spacing:0.2em; color:rgba(43,229,123,0.6); text-transform:uppercase;">[ bo'sh ]</div>
+      <p style="color:var(--text-tertiary); margin-top:14px;">O'qituvchilar hali qo'shilmagan.</p>
     </div>
     {% endif %}
   </div>

@@ -11,6 +11,11 @@ class SiteSettings(models.Model):
         max_length=300,
         default="IT Park tarmog'ining Yaypandagi markazi. Kichik guruhlar. Amaliy ta'lim.",
     )
+    hero_typed_words = models.CharField(
+        max_length=300,
+        default="Dasturlash, Backend, Grafik dizayn, Python, Sun'iy intellekt",
+        help_text="Bosh sahifadagi yozilib-o'chiriladigan so'zlar, vergul bilan ajrating",
+    )
     about_text = models.TextField(
         default="IT Center Yaypan — Farg'ona viloyatining Yaypan tumanida joylashgan texnologiya ta'lim markazi. IT Park tarmog'ining bir qismi sifatida faoliyat yuritamiz. Maqsadimiz — dasturlash va raqamli ko'nikmalarni hududdagi yoshlarga yetkazish."
     )
